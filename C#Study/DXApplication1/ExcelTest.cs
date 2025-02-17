@@ -13,6 +13,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace DXApplication1
@@ -23,19 +24,17 @@ namespace DXApplication1
         Excel.Application excelApp = new Excel.Application();//엑셀 app 객체
         
         //깃허브를 하용하면 파일 위치가 변경되기 때문에 바꿔 주어야 한다.
-        string filePath = "C:\\Users\\lg\\Desktop\\Excel Test\\시험 데이터.csv";
         Excel.Workbook workbook;
         Excel.Worksheet ws;
         Range findCell;
         public Excel.Axis Vaxis;
         public Excel.Axis Caxis;
-        public void ExcelControl()
+        public void ExcelControl(string path)
         {
             try
             {
                 excelApp.Visible = true; // 엑셀을 켜서 작동하는지 육안으로 확인하기 위한 코드 true면 엑셀을 켜서 동작을 보여줌
-                workbook = excelApp.Workbooks.Open(filePath);
-
+                workbook = excelApp.Workbooks.Open(path);
                 ws = workbook.Sheets[1] as Excel.Worksheet; // as 는 안전한 형변환으로 변환이 안되면 예외를 묻지 않고 null값을 넣는다.
 
                 findCell = ws.Cells[2, 10];

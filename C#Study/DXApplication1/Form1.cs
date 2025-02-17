@@ -27,7 +27,7 @@ namespace DXApplication1
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.InitialDirectory = textBox3.Text;
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -44,10 +44,9 @@ namespace DXApplication1
                     {
                         fileContent = reader.ReadToEnd();
                     }
-                    
-                    Console.WriteLine(fileStream);
-                    ProcessStartInfo info = new ProcessStartInfo();
-                    Process.Start(filePath, fileContent);
+
+                    //ProcessStartInfo info = new ProcessStartInfo();
+                    //Process.Start(filePath, fileContent);
                     textBox3.Text = filePath;
                 }
             }
@@ -56,7 +55,7 @@ namespace DXApplication1
         private void button1_Click(object sender, EventArgs e)
         {
             ExcelTest ex = new ExcelTest();
-            ex.ExcelControl();
+            ex.ExcelControl(textBox3.Text);
         }
 
         private bool IsEnterPressed = false;        
@@ -67,8 +66,7 @@ namespace DXApplication1
             textBox.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == Keys.Enter && IsEnterPressed)
-                {
-                    Console.WriteLine(textBox.Name + " 값이 입력 되었습니다.");
+                {                     
                     num = Int32.Parse(textBox.Text);
                     textBox.Clear();
                     IsEnterPressed = false;
