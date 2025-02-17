@@ -17,6 +17,7 @@ namespace DXApplication1
                     //여기서 맥시멈 미니멈 값을 변경 해주어야함
                     break;
                 case "DisCharge CC":
+                    //주석 테스트
                     break;
                 case "Charge CP":
                     break;
