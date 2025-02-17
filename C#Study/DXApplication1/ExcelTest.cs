@@ -22,7 +22,8 @@ namespace DXApplication1
         //기능을 전부 구현후 winform형식에 버튼으로 제어하는 기능을 만들면 괜찮을지도...?
         Excel.Application excelApp = new Excel.Application();//엑셀 app 객체
         
-        string filePath = "C:\\Users\\hyung\\OneDrive\\바탕 화면\\개인적인 폴더\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]\\TEST_250122_131418.csv";
+        //깃허브를 하용하면 파일 위치가 변경되기 때문에 바꿔 주어야 한다.
+        string filePath = "C:\\Users\\lg\\Desktop\\Excel Test\\시험 데이터.csv";
         Excel.Workbook workbook;
         Excel.Worksheet ws;
         Range findCell;
@@ -30,26 +31,22 @@ namespace DXApplication1
         public Excel.Axis Caxis;
         public void ExcelControl()
         {
-
             try
             {
-                //excelApp.Visible = true; // 엑셀을 켜서 작동하는지 육안으로 확인하기 위한 코드 true면 엑셀을 켜서 동작을 보여줌
+                excelApp.Visible = true; // 엑셀을 켜서 작동하는지 육안으로 확인하기 위한 코드 true면 엑셀을 켜서 동작을 보여줌
                 workbook = excelApp.Workbooks.Open(filePath);
 
                 ws = workbook.Sheets[1] as Excel.Worksheet; // as 는 안전한 형변환으로 변환이 안되면 예외를 묻지 않고 null값을 넣는다.
-            }
-            catch(Exception ex)
-            {
+
                 findCell = ws.Cells[2, 10];
 
                 //엑셀은 비어있는 값을 null로 비교해야한다.
 
                 int a = 2;
-                while (findCell.Value != null)
+                while (findCell.Value == null)
                 {
                     a++;
                     findCell = ws.Cells[a, 10];
-                    Console.WriteLine("되는건가?");
                 }
 
                 int save = a;
@@ -109,13 +106,15 @@ namespace DXApplication1
                 // 차트 제목 설정
                 chart.HasTitle = true;
                 chart.ChartTitle.Text = s; // + "1-1"; 이런거 넣으면 좋을듯 한데 고민좀 해봅시다
-
-                //workbook.SaveAs("C:\\Users\\lg\\Desktop\\Excel Test\\시험 데이터\\d.scv"); // 끝에 내가 파일명을 지정해주면 됨
             }
-            finally
+            catch(Exception ex)
             {
-                ExcelControlExit();
+                MessageBox.Show(ex.Message); //비상!
             }
+            //workbook.SaveAs("C:\\Users\\lg\\Desktop\\Excel Test\\시험 데이터\\d.scv"); // 끝에 내가 파일명을 지정해주면 됨
+            
+            //ExcelControlExit();
+            
         }
 
         public void ExcelControlExit()

@@ -24,7 +24,6 @@ namespace DXApplication1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ExcelTest ex = new ExcelTest();
-            ex.ExcelControl();
             Application.Run(new Form1());
             ex.ExcelControlExit();
             Task.Delay(1000);

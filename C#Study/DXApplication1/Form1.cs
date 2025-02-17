@@ -48,13 +48,15 @@ namespace DXApplication1
                     Console.WriteLine(fileStream);
                     ProcessStartInfo info = new ProcessStartInfo();
                     Process.Start(filePath, fileContent);
+                    textBox3.Text = filePath;
                 }
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            ExcelTest ex = new ExcelTest();
+            ex.ExcelControl();
         }
 
         private bool IsEnterPressed = false;        
