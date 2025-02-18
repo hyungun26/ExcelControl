@@ -51,7 +51,7 @@ namespace DXApplication1
                 int save = a;
                 string s = (string)findCell.Value;
 
-                Control.SetSelectMode(s); // 모드에 따라 처리해야할 부분이 있으면 사용할 코드
+                //Control.SetSelectMode(s); // 모드에 따라 처리해야할 부분이 있으면 사용할 코드
 
                 while (findCell.Value == s) // Charge 모드 들어가서 찍는 첫번째 데이터 뺀 값
                 {

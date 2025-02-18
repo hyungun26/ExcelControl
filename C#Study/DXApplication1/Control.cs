@@ -9,7 +9,7 @@ namespace DXApplication1
 {
     internal class Control
     {
-        public static void SetSelectMode(string mode)
+        public static void SetSelectMode(string mode, float value, float persent)
         {
             //여기서 맥시멈 미니멈 값을 변경 해주어야함
             switch (mode)

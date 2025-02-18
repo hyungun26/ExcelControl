@@ -62,7 +62,7 @@ namespace DXApplication1
 
         private float TextBoxOnce(System.Windows.Forms.TextBox textBox) //Enter float값을 입력 받았을때 딱 한번만 동작
         {
-            float num= 0;
+            float num = 0;
             textBox.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == Keys.Enter && IsEnterPressed)
@@ -79,17 +79,22 @@ namespace DXApplication1
 
 
         //TextBox는 자기 안에 문자가 추가/제거 즉 변화가 생길때 마다 작동한다.
-        //Enter키를 누르면 딱 이 부분만 실행이 된다.
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            
             ExcelTest excelTest = new ExcelTest();
-            excelTest.Caxis.MaximumScale = TextBoxOnce(textBox1);
+            excelTest.Caxis.MaximumScale = TextBoxOnce(textBox4) + TextBoxOnce(textBox1) * 0.01 * TextBoxOnce(textBox2);
+            excelTest.Caxis.MinimumScale = TextBoxOnce(textBox4) - TextBoxOnce(textBox1) * 0.01 * TextBoxOnce(textBox2);
+            Console.WriteLine($"MximumScale : {excelTest.Caxis.MaximumScale} + MinimumScale : {excelTest.Caxis.MinimumScale}");
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(textBox2);
+            
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
