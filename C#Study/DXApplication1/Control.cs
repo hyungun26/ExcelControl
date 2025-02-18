@@ -11,10 +11,10 @@ namespace DXApplication1
     {
         public static void SetSelectMode(string mode)
         {
+            //여기서 맥시멈 미니멈 값을 변경 해주어야함
             switch (mode)
             {
                 case "Charge CC":
-                    //여기서 맥시멈 미니멈 값을 변경 해주어야함
                     break;
                 case "DisCharge CC":
                     break;

@@ -70,10 +70,10 @@ namespace DXApplication1
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(681, 299);
+            this.button1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(717, 314);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(78, 63);
+            this.button1.Size = new System.Drawing.Size(57, 32);
             this.button1.TabIndex = 3;
             this.button1.Text = "실행";
             this.button1.UseVisualStyleBackColor = true;
@@ -95,7 +95,8 @@ namespace DXApplication1
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(424, 26);
             this.textBox3.TabIndex = 5;
-            this.textBox3.Text = "U:\\2차 전지 사업팀\\SW Project\\프로젝트별 시험데이터\\4. BPJT-24-0008 에너테크_16CH_Cell\\TestLog_ch01~04\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]";
+            this.textBox3.Text = "U:\\2차 전지 사업팀\\SW Project\\프로젝트별 시험데이터\\4. BPJT-24-0008 에너테크_16CH_Cell\\TestLog_ch01~0" +
+    "4\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]";
             // 
             // Form1
             // 
@@ -109,7 +110,7 @@ namespace DXApplication1
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button);
             this.IconOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("Form1.IconOptions.SvgImage")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "ExcelControl";
             this.ResumeLayout(false);

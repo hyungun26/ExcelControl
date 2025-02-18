@@ -60,7 +60,7 @@ namespace DXApplication1
 
         private bool IsEnterPressed = false;        
 
-        private float TextBoxOnce(System.Windows.Forms.TextBox textBox)
+        private float TextBoxOnce(System.Windows.Forms.TextBox textBox) //Enter float값을 입력 받았을때 딱 한번만 동작
         {
             float num= 0;
             textBox.KeyDown += (sender, e) =>
