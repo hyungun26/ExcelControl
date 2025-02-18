@@ -54,8 +54,11 @@ namespace DXApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            float first = float.Parse(textBox4.Text) + float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
+            float second = float.Parse(textBox4.Text) - float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
+            Console.WriteLine($"MximumScale : {first}, MinimumScale : {second}");
             ExcelTest ex = new ExcelTest();
-            ex.ExcelControl(textBox3.Text);
+            ex.ExcelControl(textBox3.Text, first, second);
         }
 
         private bool IsEnterPressed = false;        
@@ -67,8 +70,8 @@ namespace DXApplication1
             {
                 if (e.KeyCode == Keys.Enter && IsEnterPressed)
                 {                     
-                    num = Int32.Parse(textBox.Text);
-                    textBox.Clear();
+                    num = float.Parse(textBox.Text);
+                    textBox.Clear();                    
                     IsEnterPressed = false;
                 }
             };
@@ -81,20 +84,17 @@ namespace DXApplication1
         //TextBox는 자기 안에 문자가 추가/제거 즉 변화가 생길때 마다 작동한다.
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            ExcelTest excelTest = new ExcelTest();
-            excelTest.Caxis.MaximumScale = TextBoxOnce(textBox4) + TextBoxOnce(textBox1) * 0.01 * TextBoxOnce(textBox2);
-            excelTest.Caxis.MinimumScale = TextBoxOnce(textBox4) - TextBoxOnce(textBox1) * 0.01 * TextBoxOnce(textBox2);
-            Console.WriteLine($"MximumScale : {excelTest.Caxis.MaximumScale} + MinimumScale : {excelTest.Caxis.MinimumScale}");
+            TextBoxOnce(textBox1);
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            
+            TextBoxOnce(textBox2);
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-
+            TextBoxOnce(textBox4);
         }
     }
 }

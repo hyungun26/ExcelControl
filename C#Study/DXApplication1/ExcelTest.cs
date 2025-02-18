@@ -29,7 +29,7 @@ namespace DXApplication1
         Range findCell;
         public Excel.Axis Vaxis;
         public Excel.Axis Caxis;
-        public void ExcelControl(string path)
+        public void ExcelControl(string path, float first, float second)
         {
             try
             {
@@ -92,8 +92,9 @@ namespace DXApplication1
                 Caxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse; //테두리 없앰
 
                 // 스케일 범위를 받아오는 걸로 하자
-                Caxis.MinimumScale = 199.5;
-                Caxis.MaximumScale = 200.5;
+                
+                Caxis.MaximumScale = first;
+                Caxis.MinimumScale = second;
 
                 Excel.Axis xAxis = chart.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
                 xAxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
