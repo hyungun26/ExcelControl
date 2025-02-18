@@ -44,6 +44,7 @@ bld/
 
 .DXApplication1/
 .obj/Debug/DXApplication1.exe
+
 *.exe
 
 
