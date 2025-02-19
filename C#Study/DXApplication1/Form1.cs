@@ -56,7 +56,7 @@ namespace DXApplication1
         {
             float first = float.Parse(textBox4.Text) + float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
             float second = float.Parse(textBox4.Text) - float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
-            Console.WriteLine($"MximumScale : {first}, MinimumScale : {second}");
+            
             ExcelTest ex = new ExcelTest();
             ex.ExcelControl(textBox3.Text, first, second);
         }
