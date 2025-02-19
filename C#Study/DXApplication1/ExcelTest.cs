@@ -7,6 +7,7 @@ using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
@@ -23,7 +24,7 @@ namespace DXApplication1
         //기능을 전부 구현후 winform형식에 버튼으로 제어하는 기능을 만들면 괜찮을지도...?
         Excel.Application excelApp = new Excel.Application();//엑셀 app 객체
         
-        //깃허브를 하용하면 파일 위치가 변경되기 때문에 바꿔 주어야 한다.
+        //깃허브를 사용하면 파일 위치가 변경되기 때문에 바꿔 주어야 한다.
         Excel.Workbook workbook;
         Excel.Worksheet ws;
         Range findCell;
@@ -70,29 +71,36 @@ namespace DXApplication1
 
                 // 차트 유형 설정 (꺾은선형 그래프)
                 chart.ChartType = XlChartType.xlLine;
+                chart.ChartArea.Border.Color = ColorTranslator.ToOle(Color.FromArgb(217, 217, 217)); // 빨간색 (RGB: 255, 0, 0)
 
                 Excel.SeriesCollection seriesCollection = chart.SeriesCollection();
 
-                Excel.Series Voltage = seriesCollection.Item(1); // 첫 번째 데이터 계열 
+                var yAxis = chart.Axes(Excel.XlAxisType.xlValue, Excel.XlAxisGroup.xlPrimary);
+                yAxis.HasMajorGridlines = true;
+
+                var MajorGridlines = yAxis.MajorGridlines;
+                MajorGridlines.Border.Color = ColorTranslator.ToOle(Color.FromArgb(217, 217, 217));
+
+
+                Excel.Series Voltage = seriesCollection.Item(1); // 첫 번째 데이터 계열
                 Voltage.Name = "Voltage";
 
                 Excel.Series Current = seriesCollection.Item(2); // 두 번째 데이터 계열
                 Current.Name = "Current";
 
                 // 주축
-                Voltage.Format.Line.Weight = 2.75f;
+                Voltage.Format.Line.Weight = 2.25f; // 선 굵기
                 Voltage.AxisGroup = Excel.XlAxisGroup.xlPrimary;
                 Excel.Axis Vaxis = chart.Axes(Excel.XlAxisType.xlValue, Excel.XlAxisGroup.xlPrimary); //Excel.XlAxisGroup.Primary 첫번째 축을 의미 
                 Vaxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
 
                 // 보조 축
-                Current.Format.Line.Weight = 2.75f; // 선 굵기
+                Current.Format.Line.Weight = 2.25f; 
                 Current.AxisGroup = Excel.XlAxisGroup.xlSecondary;
                 Excel.Axis Caxis = chart.Axes(Excel.XlAxisType.xlValue, Excel.XlAxisGroup.xlSecondary); //Excel.XlAxisGroup.xlSecondary 두번째 축을 의미 
                 Caxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse; //테두리 없앰
 
-                // 스케일 범위를 받아오는 걸로 하자
-                
+                // 스케일 범위
                 Caxis.MaximumScale = first;
                 Caxis.MinimumScale = second;
 
@@ -114,7 +122,6 @@ namespace DXApplication1
             //workbook.SaveAs("C:\\Users\\lg\\Desktop\\Excel Test\\시험 데이터\\d.scv"); // 끝에 내가 파일명을 지정해주면 됨
             
             //ExcelControlExit();
-            
         }
 
         public void ExcelControlExit()
