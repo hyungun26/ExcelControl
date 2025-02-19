@@ -48,11 +48,12 @@ namespace DXApplication1
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button
             // 
-            this.button.Location = new System.Drawing.Point(645, 12);
+            this.button.Location = new System.Drawing.Point(709, 12);
             this.button.Name = "button";
             this.button.Size = new System.Drawing.Size(82, 33);
             this.button.TabIndex = 1;
@@ -62,7 +63,7 @@ namespace DXApplication1
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(595, 151);
+            this.textBox1.Location = new System.Drawing.Point(595, 150);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(41, 26);
             this.textBox1.TabIndex = 5;
@@ -93,19 +94,20 @@ namespace DXApplication1
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(642, 155);
+            this.label1.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(642, 150);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(34, 18);
+            this.label1.Size = new System.Drawing.Size(43, 23);
             this.label1.TabIndex = 4;
             this.label1.Text = "±%";
             // 
             // textBox3
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox3.Location = new System.Drawing.Point(214, 15);
+            this.textBox3.Location = new System.Drawing.Point(208, 15);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(425, 26);
+            this.textBox3.Size = new System.Drawing.Size(495, 26);
             this.textBox3.TabIndex = 0;
             this.textBox3.Text = "U:\\2차 전지 사업팀\\SW Project\\프로젝트별 시험데이터\\4. BPJT-24-0008 에너테크_16CH_Cell\\TestLog_ch01~0" +
     "4\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]";
@@ -143,16 +145,17 @@ namespace DXApplication1
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(314, 111);
+            this.label4.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(314, 108);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 18);
+            this.label4.Size = new System.Drawing.Size(21, 23);
             this.label4.TabIndex = 9;
             this.label4.Text = "V";
             // 
             // textBox5
             // 
             this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox5.Location = new System.Drawing.Point(208, 153);
+            this.textBox5.Location = new System.Drawing.Point(208, 150);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 26);
             this.textBox5.TabIndex = 3;
@@ -161,16 +164,17 @@ namespace DXApplication1
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(314, 157);
+            this.label5.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(314, 154);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(17, 18);
+            this.label5.Size = new System.Drawing.Size(21, 23);
             this.label5.TabIndex = 9;
             this.label5.Text = "A";
             // 
             // textBox6
             // 
             this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox6.Location = new System.Drawing.Point(354, 151);
+            this.textBox6.Location = new System.Drawing.Point(354, 150);
             this.textBox6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(114, 26);
@@ -181,7 +185,7 @@ namespace DXApplication1
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(474, 151);
+            this.label6.Location = new System.Drawing.Point(474, 150);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(87, 25);
             this.label6.TabIndex = 8;
@@ -196,10 +200,20 @@ namespace DXApplication1
             "CCCV",
             "CPCV",
             "Pattern"});
-            this.comboBox1.Location = new System.Drawing.Point(60, 12);
+            this.comboBox1.Location = new System.Drawing.Point(107, 15);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(88, 26);
+            this.comboBox1.Size = new System.Drawing.Size(89, 30);
             this.comboBox1.TabIndex = 10;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Location = new System.Drawing.Point(34, 15);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 25);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Mode : ";
             // 
             // Form1
             // 
@@ -213,6 +227,7 @@ namespace DXApplication1
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox6);
             this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label1);
@@ -247,6 +262,7 @@ namespace DXApplication1
         private TextBox textBox6;
         private Label label6;
         private ComboBox comboBox1;
+        private Label label7;
     }
 }
 
