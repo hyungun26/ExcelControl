@@ -56,7 +56,7 @@ namespace DXApplication1
             this.button.Location = new System.Drawing.Point(709, 12);
             this.button.Name = "button";
             this.button.Size = new System.Drawing.Size(82, 33);
-            this.button.TabIndex = 1;
+            this.button.TabIndex = 0;
             this.button.Text = "SearchFile";
             this.button.Click += new System.EventHandler(this.button_Click);
             // 
@@ -77,7 +77,7 @@ namespace DXApplication1
             this.textBox2.Location = new System.Drawing.Point(208, 107);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 26);
-            this.textBox2.TabIndex = 2;
+            this.textBox2.TabIndex = 1;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // button1
@@ -105,10 +105,13 @@ namespace DXApplication1
             // textBox3
             // 
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textBox3.CausesValidation = false;
             this.textBox3.Location = new System.Drawing.Point(208, 15);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(495, 26);
-            this.textBox3.TabIndex = 0;
+            this.textBox3.TabIndex = 2;
+            this.textBox3.TabStop = false;
             this.textBox3.Text = "U:\\2차 전지 사업팀\\SW Project\\프로젝트별 시험데이터\\4. BPJT-24-0008 에너테크_16CH_Cell\\TestLog_ch01~0" +
     "4\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]";
             // 
@@ -129,7 +132,7 @@ namespace DXApplication1
             this.textBox4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(114, 26);
-            this.textBox4.TabIndex = 4;
+            this.textBox4.TabIndex = 2;
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
             // label3
@@ -202,8 +205,9 @@ namespace DXApplication1
             "Pattern"});
             this.comboBox1.Location = new System.Drawing.Point(107, 15);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(89, 30);
-            this.comboBox1.TabIndex = 10;
+            this.comboBox1.Size = new System.Drawing.Size(89, 26);
+            this.comboBox1.TabIndex = 7;
+            this.comboBox1.SelectedIndex = 0;
             // 
             // label7
             // 
