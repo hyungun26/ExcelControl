@@ -50,8 +50,8 @@ namespace DXApplication1
                 }
 
                 int save = a;
-                string s = (string)findCell.Value;
 
+                string s = (string)findCell.Value;
                 //Control.SetSelectMode(s); // 모드에 따라 처리해야할 부분이 있으면 사용할 코드
 
                 while (findCell.Value == s) // Charge 모드 들어가서 찍는 첫번째 데이터 뺀 값
@@ -66,7 +66,6 @@ namespace DXApplication1
 
                 // 차트 데이터 설정
                 Range chartRange = ws.get_Range($"K{save}", $"L{a}");
-                //Console.WriteLine($"K{save}" + $"L{a}");
                 chart.SetSourceData(chartRange);
 
                 // 차트 유형 설정 (꺾은선형 그래프)
