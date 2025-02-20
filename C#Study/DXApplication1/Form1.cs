@@ -15,6 +15,9 @@ namespace DXApplication1
 {
     public partial class Form1 : DevExpress.XtraEditors.XtraForm
     {
+        float Voltage = 0;
+        float Current = 0;
+        float Length = 0;
         public Form1()
         {
             InitializeComponent();
