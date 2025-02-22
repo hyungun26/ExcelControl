@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,8 @@ namespace DXApplication1
 {
     internal class Control
     {
-        public static void SetSelectMode(string mode)
+        Form1 formChange = new Form1();
+        public void SetSelectMode(string mode)
         {
             switch (mode)
             {

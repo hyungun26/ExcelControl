@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data.TreeList;
+using DevExpress.XtraSplashScreen;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,18 +77,18 @@ namespace DXApplication1
 
 
         //TextBox는 자기 안에 문자가 추가/제거 즉 변화가 생길때 마다 작동한다.
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void range_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(textBox1);
+            TextBoxOnce(range);
         }
 
         private void ampere_TextChanged(object sender, EventArgs e)
         {
             TextBoxOnce(ampere);
         }
-        private void Tampere_TextChanged(object sender, EventArgs e)
+        private void T_ampere_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(Tampere);
+            TextBoxOnce(T_ampere);
         }
 
         private void voltage_TextChanged(object sender, EventArgs e)
@@ -95,15 +96,15 @@ namespace DXApplication1
             TextBoxOnce(voltage);
         }
 
-        private void Tvoltage_TextChanged(object sender, EventArgs e)
+        private void T_voltage_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(Tvoltage);
+            TextBoxOnce(T_voltage);
         }
 
         private void excution_Click_1(object sender, EventArgs e)
         {
-            float first = float.Parse(Tvoltage.Text) + float.Parse(textBox1.Text) * 0.01f * float.Parse(voltage.Text);
-            float second = float.Parse(Tvoltage.Text) - float.Parse(textBox1.Text) * 0.01f * float.Parse(voltage.Text);
+            float first = float.Parse(T_voltage.Text) + float.Parse(range.Text) * 0.01f * float.Parse(voltage.Text);
+            float second = float.Parse(T_voltage.Text) - float.Parse(range.Text) * 0.01f * float.Parse(voltage.Text);
 
             ExcelTest ex = new ExcelTest();
             ex.ExcelControl(searchPath.Text, first, second);
@@ -111,8 +112,57 @@ namespace DXApplication1
 
         private void modeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Control.SetSelectMode(modeSelect.Text);
-            Console.WriteLine(modeSelect.Text);
+            switch (modeSelect.Text)
+            {
+                case "CC":
+                    CCModeUI();
+                    break;
+                case "CCCV":
+                    CCCVModeUI();
+                    break;
+                case "CPCV":
+                    CPCVModeUI();
+                    break;
+                case "Pattern":
+                    PatternModeUI();
+                    break;
+                default:
+                    MessageBox.Show("모드 설정이 비정상 입니다.");
+                    break;
+            }
+        }
+
+        private void CCModeUI()
+        {
+            voltage.Visible = false;           
+            T_voltage.Visible = false;
+            V.Visible = false;
+            Target_V.Visible = false;
+
+            ampere.Visible = true;
+            T_ampere.Visible = true;
+            A.Visible = true;
+            Target_A.Visible = true;
+        }
+        private void CCCVModeUI()
+        {
+            voltage.Visible = true;
+            T_voltage.Visible = true;
+            V.Visible = true;
+            Target_V.Visible = true;
+
+            ampere.Visible = true;
+            T_ampere.Visible = true;
+            A.Visible = true;
+            Target_A.Visible = true;
+        }
+        private void CPCVModeUI()
+        {
+
+        }
+        private void PatternModeUI()
+        {
+
         }
     }
 }
