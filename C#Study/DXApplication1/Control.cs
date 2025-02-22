@@ -9,17 +9,17 @@ namespace DXApplication1
 {
     internal class Control
     {
-        public static void SetSelectMode(string mode, float value, float persent)
+        public static void SetSelectMode(string mode)
         {
             switch (mode)
             {
-                case "Charge CC":
+                case "CC":
                     break;
-                case "DisCharge CC":
+                case "CCCV":
                     break;
-                case "Charge CP":
+                case "CPCV":
                     break;
-                case "DisCharge CP":
+                case "Pattern":
                     break;
                 default: MessageBox.Show("모드 설정이 비정상 입니다.");
                     break;

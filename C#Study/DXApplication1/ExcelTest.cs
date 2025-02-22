@@ -70,7 +70,7 @@ namespace DXApplication1
 
                 // 차트 유형 설정 (꺾은선형 그래프)
                 chart.ChartType = XlChartType.xlLine;
-                chart.ChartArea.Border.Color = ColorTranslator.ToOle(Color.FromArgb(217, 217, 217)); // 빨간색 (RGB: 255, 0, 0)
+                chart.ChartArea.Border.Color = ColorTranslator.ToOle(Color.FromArgb(217, 217, 217)); // RGB color
 
                 Excel.SeriesCollection seriesCollection = chart.SeriesCollection();
 

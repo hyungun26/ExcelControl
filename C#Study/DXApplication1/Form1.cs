@@ -23,14 +23,14 @@ namespace DXApplication1
             InitializeComponent();
         }
 
-        private void button_Click(object sender, EventArgs e)
+        private void searchButton_Click(object sender, EventArgs e)
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = textBox3.Text;
+                openFileDialog.InitialDirectory = searchPath.Text;
                 openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -50,18 +50,9 @@ namespace DXApplication1
 
                     //ProcessStartInfo info = new ProcessStartInfo();
                     //Process.Start(filePath, fileContent);
-                    textBox3.Text = filePath;
+                    searchPath.Text = filePath;
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            float first = float.Parse(textBox4.Text) + float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
-            float second = float.Parse(textBox4.Text) - float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
-            
-            ExcelTest ex = new ExcelTest();
-            ex.ExcelControl(textBox3.Text, first, second);
         }
 
         private bool IsEnterPressed = false;        
@@ -90,14 +81,38 @@ namespace DXApplication1
             TextBoxOnce(textBox1);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
+        private void ampere_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(textBox2);
+            TextBoxOnce(ampere);
+        }
+        private void Tampere_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxOnce(Tampere);
         }
 
-        private void textBox4_TextChanged(object sender, EventArgs e)
+        private void voltage_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(textBox4);
+            TextBoxOnce(voltage);
+        }
+
+        private void Tvoltage_TextChanged(object sender, EventArgs e)
+        {
+            TextBoxOnce(Tvoltage);
+        }
+
+        private void excution_Click_1(object sender, EventArgs e)
+        {
+            float first = float.Parse(Tvoltage.Text) + float.Parse(textBox1.Text) * 0.01f * float.Parse(voltage.Text);
+            float second = float.Parse(Tvoltage.Text) - float.Parse(textBox1.Text) * 0.01f * float.Parse(voltage.Text);
+
+            ExcelTest ex = new ExcelTest();
+            ex.ExcelControl(searchPath.Text, first, second);
+        }
+
+        private void modeSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Control.SetSelectMode(modeSelect.Text);
+            Console.WriteLine(modeSelect.Text);
         }
     }
 }
