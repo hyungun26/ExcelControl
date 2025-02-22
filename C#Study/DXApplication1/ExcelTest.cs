@@ -30,7 +30,7 @@ namespace DXApplication1
         Range findCell;
         public Excel.Axis Vaxis;
         public Excel.Axis Caxis;
-        public void ExcelControl(string path, float first, float second)
+        public void ExcelControl(string path, string mode, float first, float second)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace DXApplication1
                 while (findCell.Value == s) // Charge 모드 들어가서 찍는 첫번째 데이터 뺀 값
                 {
                     a++;
-                    findCell = ws.Cells[a + 1, 10];
+                    findCell = ws.Cells[a + 2, 10];
                 }
 
                 ChartObjects chartObjs = (ChartObjects)ws.ChartObjects(Type.Missing);
@@ -100,8 +100,17 @@ namespace DXApplication1
                 Caxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse; //테두리 없앰
 
                 // 스케일 범위
-                Caxis.MaximumScale = first;
-                Caxis.MinimumScale = second;
+                if(s.Contains("Dis"))
+                {
+                    Caxis.MaximumScale = -second;
+                    Caxis.MinimumScale = -first;
+                }
+                else
+                {
+                    Caxis.MaximumScale = first;
+                    Caxis.MinimumScale = second;
+                }
+
 
                 Excel.Axis xAxis = chart.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
                 xAxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;

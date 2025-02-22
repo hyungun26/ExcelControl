@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace DXApplication1
@@ -22,6 +24,13 @@ namespace DXApplication1
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        
+        private void ClearAllTextBoxesWithLinq()
+        {
+            var excludedNames = new[] { "searchPath", "range" }; // 모드변경시 초기화 하지 않는 textBox
+            this.Controls.OfType<TextBox>().Where(tb => !excludedNames.Contains(tb.Name)).ToList().ForEach(tb => tb.Clear());
         }
 
         #region Windows Form Designer generated code
@@ -48,15 +57,15 @@ namespace DXApplication1
             this.T_ampere = new System.Windows.Forms.TextBox();
             this.Target_A = new System.Windows.Forms.Label();
             this.modeSelect = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.rangeLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // searchButton
             // 
-            this.searchButton.Location = new System.Drawing.Point(1064, 17);
+            this.searchButton.Location = new System.Drawing.Point(1064, 21);
             this.searchButton.Margin = new System.Windows.Forms.Padding(4);
             this.searchButton.Name = "searchButton";
-            this.searchButton.Size = new System.Drawing.Size(123, 46);
+            this.searchButton.Size = new System.Drawing.Size(123, 33);
             this.searchButton.TabIndex = 0;
             this.searchButton.Text = "SearchFile";
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
@@ -69,7 +78,7 @@ namespace DXApplication1
             this.range.Name = "range";
             this.range.Size = new System.Drawing.Size(60, 33);
             this.range.TabIndex = 5;
-            this.range.Text = "0.05";
+            this.range.Text = "0.1";
             this.range.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.range.TextChanged += new System.EventHandler(this.range_TextChanged);
             // 
@@ -82,6 +91,7 @@ namespace DXApplication1
             this.voltage.Size = new System.Drawing.Size(149, 33);
             this.voltage.TabIndex = 1;
             this.voltage.TextChanged += new System.EventHandler(this.voltage_TextChanged);
+            this.voltage.Visible = false;
             // 
             // excution
             // 
@@ -99,7 +109,7 @@ namespace DXApplication1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(963, 217);
+            this.label1.Location = new System.Drawing.Point(953, 217);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 37);
             this.label1.TabIndex = 4;
@@ -139,6 +149,7 @@ namespace DXApplication1
             this.T_voltage.Size = new System.Drawing.Size(170, 33);
             this.T_voltage.TabIndex = 2;
             this.T_voltage.TextChanged += new System.EventHandler(this.T_voltage_TextChanged);
+            this.T_voltage.Visible = false;
             // 
             // Target_V
             // 
@@ -150,6 +161,7 @@ namespace DXApplication1
             this.Target_V.Size = new System.Drawing.Size(120, 37);
             this.Target_V.TabIndex = 8;
             this.Target_V.Text = "Target V";
+            this.Target_V.Visible = false;
             // 
             // V
             // 
@@ -161,6 +173,7 @@ namespace DXApplication1
             this.V.Size = new System.Drawing.Size(34, 37);
             this.V.TabIndex = 9;
             this.V.Text = "V";
+            this.V.Visible = false;
             // 
             // ampere
             // 
@@ -218,18 +231,19 @@ namespace DXApplication1
             this.modeSelect.Name = "modeSelect";
             this.modeSelect.Size = new System.Drawing.Size(132, 33);
             this.modeSelect.TabIndex = 7;
+            this.modeSelect.SelectedIndex = 0;
             this.modeSelect.SelectedIndexChanged += new System.EventHandler(this.modeSelect_SelectedIndexChanged);
             // 
-            // label7
+            // rangeLabel
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label7.Location = new System.Drawing.Point(51, 15);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(112, 37);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Mode : ";
+            this.rangeLabel.AutoSize = true;
+            this.rangeLabel.Font = new System.Drawing.Font("맑은 고딕", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.rangeLabel.Location = new System.Drawing.Point(51, 15);
+            this.rangeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.rangeLabel.Name = "rangeLabel";
+            this.rangeLabel.Size = new System.Drawing.Size(112, 37);
+            this.rangeLabel.TabIndex = 6;
+            this.rangeLabel.Text = "Mode : ";
             // 
             // Form1
             // 
@@ -243,7 +257,7 @@ namespace DXApplication1
             this.Controls.Add(this.Target_V);
             this.Controls.Add(this.T_ampere);
             this.Controls.Add(this.T_voltage);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.rangeLabel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.searchPath);
             this.Controls.Add(this.label1);
@@ -277,11 +291,11 @@ namespace DXApplication1
 
         private Label label1;
         private Label label2;
-        private Label Target_V;
         private Label V;
+        private Label Target_V;
         private Label A;
         private Label Target_A;
-        private Label label7;
+        private Label rangeLabel;
     }
 }
 

@@ -14,19 +14,19 @@ namespace DXApplication1
         Form1 formChange = new Form1();
         public void SetSelectMode(string mode)
         {
-            switch (mode)
-            {
-                case "CC":
-                    break;
-                case "CCCV":
-                    break;
-                case "CPCV":
-                    break;
-                case "Pattern":
-                    break;
-                default: MessageBox.Show("모드 설정이 비정상 입니다.");
-                    break;
-            }
+            //switch (mode)
+            //{
+            //    case "CC":
+            //        break;
+            //    case "CCCV":
+            //        break;
+            //    case "CPCV":
+            //        break;
+            //    case "Pattern":
+            //        break;
+            //    default: MessageBox.Show("모드 설정이 비정상 입니다.");
+            //        break;
+            //}
         }
     }
 }

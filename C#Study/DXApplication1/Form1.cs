@@ -107,11 +107,12 @@ namespace DXApplication1
             float second = float.Parse(T_voltage.Text) - float.Parse(range.Text) * 0.01f * float.Parse(voltage.Text);
 
             ExcelTest ex = new ExcelTest();
-            ex.ExcelControl(searchPath.Text, first, second);
+            ex.ExcelControl(searchPath.Text, modeSelect.Text, first, second);
         }
 
         private void modeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ClearAllTextBoxesWithLinq();
             switch (modeSelect.Text)
             {
                 case "CC":
@@ -138,7 +139,6 @@ namespace DXApplication1
             T_voltage.Visible = false;
             V.Visible = false;
             Target_V.Visible = false;
-
             ampere.Visible = true;
             T_ampere.Visible = true;
             A.Visible = true;
@@ -150,19 +150,31 @@ namespace DXApplication1
             T_voltage.Visible = true;
             V.Visible = true;
             Target_V.Visible = true;
-
             ampere.Visible = true;
             T_ampere.Visible = true;
+            Target_A.Text = "Target A";
             A.Visible = true;
+            A.Text = "A";
             Target_A.Visible = true;
         }
         private void CPCVModeUI()
         {
+            voltage.Visible = true;
+            T_voltage.Visible = true;
+            V.Visible = true;
+            Target_V.Visible = true;
+            ampere.Visible = true;
+            T_ampere.Visible = true;
+            Target_A.Text = "Target P";
+            A.Visible = true;
+            A.Text = "P";
+            Target_A.Visible = true;
 
         }
         private void PatternModeUI()
         {
-
+            MessageBox.Show("아직 구현안했슴다!");
+            //일단 보류
         }
     }
 }
