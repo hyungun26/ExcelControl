@@ -22,6 +22,7 @@ namespace DXApplication1
         public Form1()
         {
             InitializeComponent();
+            //this.Load += Form1_Load;
         }
 
         private void searchButton_Click(object sender, EventArgs e)
@@ -143,6 +144,7 @@ namespace DXApplication1
             T_ampere.Visible = true;
             A.Visible = true;
             Target_A.Visible = true;
+            Spec.Location = new Point(211, 150);
         }
         private void CCCVModeUI()
         {
@@ -156,6 +158,7 @@ namespace DXApplication1
             A.Visible = true;
             A.Text = "A";
             Target_A.Visible = true;
+            Spec.Location = new Point(211, 100);
         }
         private void CPCVModeUI()
         {
@@ -169,12 +172,18 @@ namespace DXApplication1
             A.Visible = true;
             A.Text = "P";
             Target_A.Visible = true;
-
+            Spec.Location = new Point(211, 100);
         }
         private void PatternModeUI()
         {
             MessageBox.Show("아직 구현안했슴다!");
             //일단 보류
+        }
+
+        private void Form1_Load(object sender, EventArgs e) // form이 실행되면 최초 한번 실행하는 곳
+        {
+            modeSelect.Text = "CC"; // 초기 모드를 설정 (필요에 따라 변경 가능)
+            modeSelect_SelectedIndexChanged(sender, e); // 모드 변경 메서드 호출
         }
     }
 }
