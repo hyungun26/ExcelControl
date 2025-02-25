@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.TextBox;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace DXApplication1
 {
@@ -61,7 +61,7 @@ namespace DXApplication1
 
         private bool IsEnterPressed = false;        
 
-        private float TextBoxOnce(System.Windows.Forms.TextBox textBox) //Enter float값을 입력 받았을때 딱 한번만 동작
+        private float TextBoxOnce(TextBox textBox) //Enter float값을 입력 받았을때 딱 한번만 동작
         {
             float num = 0;
             textBox.KeyDown += (sender, e) =>
@@ -78,7 +78,7 @@ namespace DXApplication1
             return num;
         }
 
-        private void IntOnly(System.Windows.Forms.TextBox textBox)
+        private void IntOnly(TextBox textBox)
         {
             // 현재 TextBox의 텍스트를 가져옵니다.
             string currentText = textBox.Text;
@@ -126,6 +126,7 @@ namespace DXApplication1
             IntOnly(T_voltage);
         }
 
+        float targetValue;
         float rangeValue;
 
         private void excution_Click_1(object sender, EventArgs e)
@@ -133,13 +134,20 @@ namespace DXApplication1
             
             ExcelTest ex = new ExcelTest();
             //Power는 예외로 두고 일단 테스트
-            ex.ExcelControl(searchPath.Text, modeSelect.Text, range_Value(T_voltage, range, voltage), range_Value(T_ampere, range, ampere));
+            ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_voltage), range_Value(voltage, range), target_Value(T_ampere), range_Value(range, ampere));
         }
 
 
-        private float range_Value(System.Windows.Forms.TextBox textBox1, System.Windows.Forms.TextBox textBox2, System.Windows.Forms.TextBox textBox3)
+
+
+
+        private float target_Value(TextBox textBox1)
         {
-            return rangeValue = float.Parse(textBox1.Text) + float.Parse(textBox2.Text) * 0.01f * float.Parse(textBox3.Text);
+            return targetValue = float.Parse(textBox1.Text);
+        }
+        private float range_Value(TextBox textBox1, TextBox textBox2)
+        {
+            return rangeValue = float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
         }
 
 
@@ -169,15 +177,15 @@ namespace DXApplication1
 
         private void CCModeUI()
         {
-            voltage.Visible = true;
-            T_voltage.Visible = true;
-            V.Visible = true;
-            Target_V.Visible = true;
+            voltage.Visible = false;
+            T_voltage.Visible = false;
+            V.Visible = false;
+            Target_V.Visible = false;
             ampere.Visible = true;
             T_ampere.Visible = true;
             A.Visible = true;
             Target_A.Visible = true;
-            Spec.Location = new Point(211, 100);
+            Spec.Location = new Point(211, 150);
         }
         private void CCCVModeUI()
         {

@@ -30,7 +30,7 @@ namespace DXApplication1
         Range findCell;
         public Excel.Axis Vaxis;
         public Excel.Axis Caxis;
-        public void ExcelControl(string path, string mode, float first, float second)
+        public void ExcelControl(string path, string mode, float first, float first_range, float second, float second_range)
         {
             try
             {
@@ -102,17 +102,18 @@ namespace DXApplication1
                 // 스케일 범위
                 if(s.Contains("Dis"))
                 {
-                    Caxis.MaximumScale = -second;
-                    Caxis.MinimumScale = -first;
                     Vaxis.MaximumScale = -second;
                     Vaxis.MinimumScale = -first;
+                    Caxis.MaximumScale = -second;
+                    Caxis.MinimumScale = -first;
                 }
                 else
                 {
-                    Caxis.MaximumScale = first;
-                    Caxis.MinimumScale = second;
-                    Vaxis.MaximumScale = first;
-                    Vaxis.MinimumScale = second;
+                    //Vaxis축은 CCCV모드 부터 들어간다 대신 Caxis를 건들지 않는다. 이 부분을 모드에따라 어떤것이 주축이 될지 정해야함
+                    //Vaxis.MaximumScale = first + first_range;
+                    //Vaxis.MinimumScale = first - first_range;
+                    Caxis.MaximumScale = second + second_range;
+                    Caxis.MinimumScale = second - second_range;
                 }
 
 
@@ -160,6 +161,31 @@ namespace DXApplication1
             finally
             {
                 GC.Collect();
+            }
+        }
+
+        public interface IAxisStrategy
+        {
+            void ConfigureAxes(Axis Vaxis, Axis Caxis, double first, double second, double firstRange, double secondRange);
+        }
+
+        public class CCCVAxisStrategy : IAxisStrategy
+        {
+            public void ConfigureAxes(Axis Vaxis, Axis Caxis, double first, double second, double firstRange, double secondRange)
+            {
+                Vaxis.MaximumScale = first + firstRange;
+                Vaxis.MinimumScale = first - firstRange;
+                //Caxis.MaximumScale = second + secondRange;
+                //Caxis.MinimumScale = second - secondRange;
+            }
+        }
+
+        public class CCModeStrategy : IAxisStrategy
+        {
+            public void ConfigureAxes(Axis Vaxis, Axis Caxis, double first, double second, double firstRange, double secondRange)
+            {
+                Caxis.MaximumScale = second + secondRange;
+                Caxis.MinimumScale = second - secondRange;
             }
         }
     }
