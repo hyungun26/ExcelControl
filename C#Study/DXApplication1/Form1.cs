@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data.TreeList;
+using DevExpress.Utils.Filtering.Internal;
 using DevExpress.XtraSplashScreen;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.TextBox;
 
 namespace DXApplication1
 {
@@ -76,6 +78,24 @@ namespace DXApplication1
             return num;
         }
 
+        private void IntOnly(System.Windows.Forms.TextBox textBox)
+        {
+            // 현재 TextBox의 텍스트를 가져옵니다.
+            string currentText = textBox.Text;
+
+            // 숫자만 남기고 나머지 문자는 제거합니다.
+            string filteredText = new string(currentText.Where(c => char.IsDigit(c) || c == '.').ToArray());
+
+            // 필터링된 텍스트를 다시 TextBox에 설정합니다.
+            if (currentText != filteredText)
+            {
+                textBox.Text = filteredText;
+
+                // 커서 위치를 마지막으로 이동 (입력 중 커서가 맨 앞으로 가는 문제 해결)
+                textBox.SelectionStart = textBox.Text.Length;
+            }
+        }
+
 
         //TextBox는 자기 안에 문자가 추가/제거 즉 변화가 생길때 마다 작동한다.
         private void range_TextChanged(object sender, EventArgs e)
@@ -86,30 +106,43 @@ namespace DXApplication1
         private void ampere_TextChanged(object sender, EventArgs e)
         {
             TextBoxOnce(ampere);
+            IntOnly(ampere);
         }
         private void T_ampere_TextChanged(object sender, EventArgs e)
         {
             TextBoxOnce(T_ampere);
+            IntOnly(T_ampere);
         }
 
         private void voltage_TextChanged(object sender, EventArgs e)
         {
             TextBoxOnce(voltage);
+            IntOnly(voltage);
         }
 
         private void T_voltage_TextChanged(object sender, EventArgs e)
         {
             TextBoxOnce(T_voltage);
+            IntOnly(T_voltage);
         }
+
+        float rangeValue;
 
         private void excution_Click_1(object sender, EventArgs e)
         {
-            float first = float.Parse(T_voltage.Text) + float.Parse(range.Text) * 0.01f * float.Parse(voltage.Text);
-            float second = float.Parse(T_voltage.Text) - float.Parse(range.Text) * 0.01f * float.Parse(voltage.Text);
-
+            
             ExcelTest ex = new ExcelTest();
-            ex.ExcelControl(searchPath.Text, modeSelect.Text, first, second);
+            //Power는 예외로 두고 일단 테스트
+            ex.ExcelControl(searchPath.Text, modeSelect.Text, range_Value(T_voltage, range, voltage), range_Value(T_ampere, range, ampere));
         }
+
+
+        private float range_Value(System.Windows.Forms.TextBox textBox1, System.Windows.Forms.TextBox textBox2, System.Windows.Forms.TextBox textBox3)
+        {
+            return rangeValue = float.Parse(textBox1.Text) + float.Parse(textBox2.Text) * 0.01f * float.Parse(textBox3.Text);
+        }
+
+
 
         private void modeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -136,15 +169,15 @@ namespace DXApplication1
 
         private void CCModeUI()
         {
-            voltage.Visible = false;           
-            T_voltage.Visible = false;
-            V.Visible = false;
-            Target_V.Visible = false;
+            voltage.Visible = true;
+            T_voltage.Visible = true;
+            V.Visible = true;
+            Target_V.Visible = true;
             ampere.Visible = true;
             T_ampere.Visible = true;
             A.Visible = true;
             Target_A.Visible = true;
-            Spec.Location = new Point(211, 150);
+            Spec.Location = new Point(211, 100);
         }
         private void CCCVModeUI()
         {

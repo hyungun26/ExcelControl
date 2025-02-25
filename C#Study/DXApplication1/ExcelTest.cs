@@ -104,11 +104,15 @@ namespace DXApplication1
                 {
                     Caxis.MaximumScale = -second;
                     Caxis.MinimumScale = -first;
+                    Vaxis.MaximumScale = -second;
+                    Vaxis.MinimumScale = -first;
                 }
                 else
                 {
                     Caxis.MaximumScale = first;
                     Caxis.MinimumScale = second;
+                    Vaxis.MaximumScale = first;
+                    Vaxis.MinimumScale = second;
                 }
 
 
