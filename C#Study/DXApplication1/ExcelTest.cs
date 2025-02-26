@@ -41,7 +41,7 @@ namespace DXApplication1
                 findCell = ws.Cells[2, 10];
 
                 //엑셀은 비어있는 값을 null로 비교해야한다.
-
+                
                 int a = 2;
                 while (findCell.Value == null)
                 {
@@ -54,7 +54,7 @@ namespace DXApplication1
                 string s = (string)findCell.Value;
                 //Control.SetSelectMode(s); // 모드에 따라 처리해야할 부분이 있으면 사용할 코드
 
-                while (findCell.Value == s) // Charge 모드 들어가서 찍는 첫번째 데이터 뺀 값
+                while (findCell.Value != null) // Charge 모드 들어가서 찍는 첫번째 데이터 뺀 값
                 {
                     a++;
                     findCell = ws.Cells[a + 2, 10];
@@ -99,23 +99,62 @@ namespace DXApplication1
                 Excel.Axis Caxis = chart.Axes(Excel.XlAxisType.xlValue, Excel.XlAxisGroup.xlSecondary); //Excel.XlAxisGroup.xlSecondary 두번째 축을 의미 
                 Caxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse; //테두리 없앰
 
-                // 스케일 범위
+                string str;
                 if(s.Contains("Dis"))
                 {
-                    Vaxis.MaximumScale = -second;
-                    Vaxis.MinimumScale = -first;
-                    Caxis.MaximumScale = -second;
-                    Caxis.MinimumScale = -first;
+                    str = "Discharge";
+                    // 스케일 범위
+                    if (mode == "CC")
+                    {
+                        Caxis.MaximumScale = second - second_range;
+                        Caxis.MinimumScale = second + second_range;
+                    }
+                    else if (mode == "CCCV")
+                    {
+                        //그래프를 추가로 생성할 시 고민 해봐야함
+                        //Vaxis.MaximumScale = first + first_range;
+                        //Vaxis.MinimumScale = first - first_range;
+                        //Caxis.MaximumScale = second + second_range;
+                        //Caxis.MinimumScale = second - second_range;
+                    }
+                    else if (mode == "CPCV")
+                    {
+                        Caxis.MaximumScale = second - second_range;
+                        Caxis.MinimumScale = second + second_range;
+                    }
+                    else
+                    {
+                        MessageBox.Show("모드 설정이 비정상 입니다.");
+                    }
                 }
                 else
                 {
-                    //Vaxis축은 CCCV모드 부터 들어간다 대신 Caxis를 건들지 않는다. 이 부분을 모드에따라 어떤것이 주축이 될지 정해야함
-                    //Vaxis.MaximumScale = first + first_range;
-                    //Vaxis.MinimumScale = first - first_range;
-                    Caxis.MaximumScale = second + second_range;
-                    Caxis.MinimumScale = second - second_range;
+                    str = "Charge";
+                    // 스케일 범위
+                    if (mode == "CC")
+                    {
+                        Caxis.MaximumScale = second + second_range;
+                        Caxis.MinimumScale = second - second_range;
+                    }
+                    else if (mode == "CCCV")
+                    {
+                        //그래프를 추가로 생성할 시 고민 해봐야함
+                        //Vaxis.MaximumScale = first + first_range;
+                        //Vaxis.MinimumScale = first - first_range;
+                        //Caxis.MaximumScale = second + second_range;
+                        //Caxis.MinimumScale = second - second_range;
+                    }
+                    else if (mode == "CPCV")
+                    {
+                        Caxis.MaximumScale = second + second_range;
+                        Caxis.MinimumScale = second - second_range;
+                    }
+                    else
+                    {
+                        MessageBox.Show("모드 설정이 비정상 입니다.");
+                    }
                 }
-
+                
 
                 Excel.Axis xAxis = chart.Axes(Excel.XlAxisType.xlCategory, Excel.XlAxisGroup.xlPrimary);
                 xAxis.Format.Line.Visible = Microsoft.Office.Core.MsoTriState.msoFalse;
@@ -126,7 +165,7 @@ namespace DXApplication1
 
                 // 차트 제목 설정
                 chart.HasTitle = true;
-                chart.ChartTitle.Text = s; // + "1-1"; 이런거 넣으면 좋을듯 한데 고민좀 해봅시다
+                chart.ChartTitle.Text = str + mode; // + "1-1"; 이런거 넣으면 좋을듯 한데 고민좀 해봅시다
             }
             catch(Exception ex)
             {
@@ -164,6 +203,7 @@ namespace DXApplication1
             }
         }
 
+        #region 스트레이지 패턴 적용 전 코드
         public interface IAxisStrategy
         {
             void ConfigureAxes(Axis Vaxis, Axis Caxis, double first, double second, double firstRange, double secondRange);
@@ -171,10 +211,12 @@ namespace DXApplication1
 
         public class CCCVAxisStrategy : IAxisStrategy
         {
+            //CCCV모드는 그래프를 3개 그려야 한다.
             public void ConfigureAxes(Axis Vaxis, Axis Caxis, double first, double second, double firstRange, double secondRange)
             {
                 Vaxis.MaximumScale = first + firstRange;
                 Vaxis.MinimumScale = first - firstRange;
+
                 //Caxis.MaximumScale = second + secondRange;
                 //Caxis.MinimumScale = second - secondRange;
             }
@@ -188,5 +230,15 @@ namespace DXApplication1
                 Caxis.MinimumScale = second - secondRange;
             }
         }
+
+        public class CPCVModeStrategy : IAxisStrategy
+        {
+            public void ConfigureAxes(Axis Vaxis, Axis Caxis, double first, double second, double firstRange, double secondRange)
+            {
+                Caxis.MaximumScale = second + secondRange;
+                Caxis.MinimumScale = second - secondRange;
+            }
+        }
+        #endregion
     }
 }

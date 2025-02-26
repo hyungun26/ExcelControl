@@ -51,8 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Control.cs" />
-    <Compile Include="Mgr.cs" />
     <Compile Include="ExcelTest.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

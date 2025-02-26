@@ -67,7 +67,7 @@ namespace DXApplication1
             this.searchButton.Location = new System.Drawing.Point(709, 16);
             this.searchButton.Name = "searchButton";
             this.searchButton.Size = new System.Drawing.Size(82, 24);
-            this.searchButton.TabIndex = 0;
+            this.searchButton.TabIndex = 8;
             this.searchButton.Text = "SearchFile";
             this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
@@ -89,7 +89,6 @@ namespace DXApplication1
             this.voltage.Name = "voltage";
             this.voltage.Size = new System.Drawing.Size(100, 26);
             this.voltage.TabIndex = 1;
-            this.voltage.Text = "0";
             this.voltage.Visible = false;
             this.voltage.TextChanged += new System.EventHandler(this.voltage_TextChanged);
             // 
@@ -146,7 +145,6 @@ namespace DXApplication1
             this.T_voltage.Name = "T_voltage";
             this.T_voltage.Size = new System.Drawing.Size(114, 26);
             this.T_voltage.TabIndex = 2;
-            this.T_voltage.Text = "0";
             this.T_voltage.Visible = false;
             this.T_voltage.TextChanged += new System.EventHandler(this.T_voltage_TextChanged);
             // 
@@ -179,7 +177,6 @@ namespace DXApplication1
             this.ampere.Name = "ampere";
             this.ampere.Size = new System.Drawing.Size(100, 26);
             this.ampere.TabIndex = 3;
-            this.ampere.Text = "0";
             this.ampere.TextChanged += new System.EventHandler(this.ampere_TextChanged);
             // 
             // A
@@ -200,7 +197,6 @@ namespace DXApplication1
             this.T_ampere.Name = "T_ampere";
             this.T_ampere.Size = new System.Drawing.Size(114, 26);
             this.T_ampere.TabIndex = 4;
-            this.T_ampere.Text = "0";
             this.T_ampere.TextChanged += new System.EventHandler(this.T_ampere_TextChanged);
             // 
             // Target_A
@@ -253,7 +249,7 @@ namespace DXApplication1
             this.searchButton2.Location = new System.Drawing.Point(709, 57);
             this.searchButton2.Name = "searchButton2";
             this.searchButton2.Size = new System.Drawing.Size(82, 24);
-            this.searchButton2.TabIndex = 11;
+            this.searchButton2.TabIndex = 9;
             this.searchButton2.Text = "SearchFile";
             this.searchButton2.UseVisualStyleBackColor = false;
             // 

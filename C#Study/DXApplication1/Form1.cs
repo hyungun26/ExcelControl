@@ -1,4 +1,5 @@
-﻿using DevExpress.Data.TreeList;
+﻿using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.Data.TreeList;
 using DevExpress.Utils.Filtering.Internal;
 using DevExpress.XtraSplashScreen;
 using System;
@@ -55,11 +56,17 @@ namespace DXApplication1
                     //ProcessStartInfo info = new ProcessStartInfo();
                     //Process.Start(filePath, fileContent);
                     searchPath.Text = filePath;
+                    string updatedPath = Path.GetDirectoryName(filePath);
+                    var largeTxtFiles = Directory.EnumerateFiles(updatedPath, "*.json").Where(file => new FileInfo(file).Length > 1024);
+                    foreach (var file in largeTxtFiles)
+                    {
+                        Console.WriteLine(file);
+                    }
                 }
             }
         }
 
-        private bool IsEnterPressed = false;        
+        private bool IsEnterPressed = false;
 
         private float TextBoxOnce(TextBox textBox) //Enter float값을 입력 받았을때 딱 한번만 동작
         {
@@ -67,9 +74,9 @@ namespace DXApplication1
             textBox.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == Keys.Enter && IsEnterPressed)
-                {                     
+                {
                     num = float.Parse(textBox.Text);
-                    textBox.Clear();                    
+                    textBox.Clear();
                     IsEnterPressed = false;
                 }
             };
@@ -131,7 +138,7 @@ namespace DXApplication1
 
         private void excution_Click_1(object sender, EventArgs e)
         {
-            
+
             ExcelTest ex = new ExcelTest();
             //Power는 예외로 두고 일단 테스트
             ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_voltage), range_Value(voltage, range), target_Value(T_ampere), range_Value(range, ampere));
@@ -143,17 +150,40 @@ namespace DXApplication1
 
         private float target_Value(TextBox textBox1)
         {
+            if (textBox1.Text == "")
+            {
+                return 0;
+            }
             return targetValue = float.Parse(textBox1.Text);
         }
         private float range_Value(TextBox textBox1, TextBox textBox2)
         {
+            if (textBox1.Text == "" || textBox2.Text == "")
+            {
+                return 0;
+            }
             return rangeValue = float.Parse(textBox1.Text) * 0.01f * float.Parse(textBox2.Text);
         }
 
-
+        public enum Mode
+        {
+            CC,
+            CCCV,
+            CPCV,
+            Pattern,
+            Rest
+        }
+        public static Mode mode = Mode.CC;
 
         private void modeSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (mode.ToString() == modeSelect.Text)
+            {
+                return;
+            }
+
+            mode = (Mode)Enum.Parse(typeof(Mode), modeSelect.Text);
+
             ClearAllTextBoxesWithLinq();
             switch (modeSelect.Text)
             {
@@ -175,44 +205,48 @@ namespace DXApplication1
             }
         }
 
+        private void SetVisibility(Control[] controls, bool visible)
+        {
+            foreach (Control control in controls)
+            {
+                control.Visible = visible;
+            }
+        }
+
+        private void SetReadOnly(TextBox[] text, bool readOnly)
+        {
+            foreach (TextBox texts in text)
+            {
+                texts.ReadOnly = readOnly;
+            }
+        }
+
         private void CCModeUI()
         {
-            voltage.Visible = false;
-            T_voltage.Visible = false;
-            V.Visible = false;
-            Target_V.Visible = false;
-            ampere.Visible = true;
-            T_ampere.Visible = true;
-            A.Visible = true;
-            Target_A.Visible = true;
+            SetVisibility(new Control[] { voltage, T_voltage, V, Target_V}, false);
+            SetVisibility(new Control[] { ampere, T_ampere, A, Target_A }, true);
+
+            SetReadOnly(new TextBox[] { ampere, T_ampere, range}, false);
+            range.TabStop = true;
+
             Spec.Location = new Point(211, 150);
         }
         private void CCCVModeUI()
         {
-            voltage.Visible = true;
-            T_voltage.Visible = true;
-            V.Visible = true;
-            Target_V.Visible = true;
-            ampere.Visible = true;
-            T_ampere.Visible = true;
+            SetVisibility(new Control[] { voltage, T_voltage, V, Target_V, ampere, T_ampere, A, Target_A }, true);
+            SetReadOnly(new TextBox[] { voltage, T_voltage, ampere, T_ampere, range }, true);
+            
             Target_A.Text = "Target A";
-            A.Visible = true;
             A.Text = "A";
-            Target_A.Visible = true;
             Spec.Location = new Point(211, 100);
         }
         private void CPCVModeUI()
         {
-            voltage.Visible = true;
-            T_voltage.Visible = true;
-            V.Visible = true;
-            Target_V.Visible = true;
-            ampere.Visible = true;
-            T_ampere.Visible = true;
+            SetVisibility(new Control[] { voltage, T_voltage, V, Target_V, ampere, T_ampere, Target_A, range }, true);
+            SetReadOnly(new TextBox[] { voltage, T_voltage, ampere, T_ampere, range }, false);
+
             Target_A.Text = "Target P";
-            A.Visible = true;
             A.Text = "P";
-            Target_A.Visible = true;
             Spec.Location = new Point(211, 100);
         }
         private void PatternModeUI()
