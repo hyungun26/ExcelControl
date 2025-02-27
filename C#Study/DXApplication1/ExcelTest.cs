@@ -49,15 +49,15 @@ namespace DXApplication1
                     findCell = ws.Cells[a, 10];
                 }
 
-                int save = a;
+                int save = a + 1; //모드 들어가서 찍는 첫번째 데이터 뺀 값
 
                 string s = (string)findCell.Value;
                 //Control.SetSelectMode(s); // 모드에 따라 처리해야할 부분이 있으면 사용할 코드
 
-                while (findCell.Value != null) // Charge 모드 들어가서 찍는 첫번째 데이터 뺀 값
+                while (findCell.Value != null) 
                 {
                     a++;
-                    findCell = ws.Cells[a + 2, 10];
+                    findCell = ws.Cells[a + 1, 10];
                 }
 
                 ChartObjects chartObjs = (ChartObjects)ws.ChartObjects(Type.Missing);
@@ -102,7 +102,7 @@ namespace DXApplication1
                 string str;
                 if(s.Contains("Dis"))
                 {
-                    str = "Discharge";
+                    str = "DisCharge";
                     // 스케일 범위
                     if (mode == "CC")
                     {

@@ -68,7 +68,7 @@ namespace DXApplication1
 
         private bool IsEnterPressed = false;
 
-        private float TextBoxOnce(TextBox textBox) //Enter float값을 입력 받았을때 딱 한번만 동작
+        private float TextBoxOnce(TextBox textBox) //Enter float값을 입력 받기
         {
             float num = 0;
             textBox.KeyDown += (sender, e) =>
@@ -83,6 +83,17 @@ namespace DXApplication1
 
             IsEnterPressed = true;
             return num;
+        }
+
+        private void TextBox_Enter(object sender, EventArgs e)
+        {
+            // 텍스트박스의 텍스트 전체 선택
+            TextBox textBox = sender as TextBox;
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                textBox.SelectionStart = 0; // 시작 위치
+                textBox.SelectionLength = textBox.Text.Length; // 전체 길이
+            }
         }
 
         private void IntOnly(TextBox textBox)
@@ -107,29 +118,29 @@ namespace DXApplication1
         //TextBox는 자기 안에 문자가 추가/제거 즉 변화가 생길때 마다 작동한다.
         private void range_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(range);
+            //TextBoxOnce(range);
         }
 
         private void ampere_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(ampere);
+            //TextBoxOnce(ampere);
             IntOnly(ampere);
         }
         private void T_ampere_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(T_ampere);
+            //TextBoxOnce(T_ampere);
             IntOnly(T_ampere);
         }
 
         private void voltage_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(voltage);
+            //TextBoxOnce(voltage);
             IntOnly(voltage);
         }
 
         private void T_voltage_TextChanged(object sender, EventArgs e)
         {
-            TextBoxOnce(T_voltage);
+            //TextBoxOnce(T_voltage);
             IntOnly(T_voltage);
         }
 
@@ -257,6 +268,13 @@ namespace DXApplication1
 
         private void Form1_Load(object sender, EventArgs e) // form이 실행되면 최초 한번 실행하는 곳
         {
+            foreach (Control control in this.Controls) //텍스트 박스 Tap이동시 전체 선택 
+            {
+                if (control is TextBox textBox)
+                {
+                    textBox.Enter += TextBox_Enter;
+                }
+            }
             modeSelect.Text = "CC"; // 초기 모드를 설정 (필요에 따라 변경 가능)
             modeSelect_SelectedIndexChanged(sender, e); // 모드 변경 메서드 호출
         }
