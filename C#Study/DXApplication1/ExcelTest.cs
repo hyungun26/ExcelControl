@@ -65,8 +65,9 @@ namespace DXApplication1
                 Chart chart = chartObj.Chart;
 
                 // 차트 데이터 설정
-                Range chartRange = ws.get_Range($"K{save}", $"L{a}");
-                chart.SetSourceData(chartRange);
+                Range chartRange1 = ws.get_Range($"K{save}", $"K{a}");
+                Range chartRange2 = ws.get_Range($"M{save}", $"M{a}");
+                //chart.SetSourceData(chartRange1, chartRange2);
 
                 // 차트 유형 설정 (꺾은선형 그래프)
                 chart.ChartType = XlChartType.xlLine;
@@ -81,10 +82,12 @@ namespace DXApplication1
                 MajorGridlines.Border.Color = ColorTranslator.ToOle(Color.FromArgb(217, 217, 217));
 
 
-                Excel.Series Voltage = seriesCollection.Item(1); // 첫 번째 데이터 계열
+                Excel.Series Voltage = seriesCollection.NewSeries(); // 첫 번째 데이터 계열
+                Voltage.Values = chartRange1;
                 Voltage.Name = "Voltage";
 
-                Excel.Series Current = seriesCollection.Item(2); // 두 번째 데이터 계열
+                Excel.Series Current = seriesCollection.NewSeries(); // 두 번째 데이터 계열
+                Current.Values = chartRange2;
                 Current.Name = "Current";
 
                 // 주축
@@ -106,8 +109,8 @@ namespace DXApplication1
                     // 스케일 범위
                     if (mode == "CC")
                     {
-                        Caxis.MaximumScale = second - second_range;
-                        Caxis.MinimumScale = second + second_range;
+                        Caxis.MaximumScale = -second + second_range;
+                        Caxis.MinimumScale = -second - second_range;
                     }
                     else if (mode == "CCCV")
                     {
@@ -119,8 +122,8 @@ namespace DXApplication1
                     }
                     else if (mode == "CPCV")
                     {
-                        Caxis.MaximumScale = second - second_range;
-                        Caxis.MinimumScale = second + second_range;
+                        Caxis.MaximumScale = -second + second_range;
+                        Caxis.MinimumScale = -second - second_range;
                     }
                     else
                     {

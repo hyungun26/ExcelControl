@@ -53,15 +53,15 @@ namespace DXApplication1
                         fileContent = reader.ReadToEnd();
                     }
 
-                    //ProcessStartInfo info = new ProcessStartInfo();
-                    //Process.Start(filePath, fileContent);
                     searchPath.Text = filePath;
-                    string updatedPath = Path.GetDirectoryName(filePath);
-                    var largeTxtFiles = Directory.EnumerateFiles(updatedPath, "*.json").Where(file => new FileInfo(file).Length > 1024);
-                    foreach (var file in largeTxtFiles)
-                    {
-                        Console.WriteLine(file);
-                    }
+
+                    //경로안에 있는 파일 찾는 코드
+                    //string updatedPath = Path.GetDirectoryName(filePath);
+                    //var largeTxtFiles = Directory.EnumerateFiles(updatedPath, "*.json").Where(file => new FileInfo(file).Length > 1024);
+                    //foreach (var file in largeTxtFiles)
+                    //{
+                    //    Console.WriteLine(file);
+                    //}
                 }
             }
         }
