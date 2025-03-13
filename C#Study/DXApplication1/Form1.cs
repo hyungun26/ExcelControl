@@ -30,6 +30,7 @@ namespace DXApplication1
 
         private void searchButton_Click(object sender, EventArgs e)
         {
+            //only excel file만 열리게 해야 함
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
@@ -98,10 +99,10 @@ namespace DXApplication1
 
         private void IntOnly(TextBox textBox)
         {
-            // 현재 TextBox의 텍스트를 가져옵니다.
+            // 현재 TextBox의 텍스트를 가져옵니다. 
             string currentText = textBox.Text;
 
-            // 숫자만 남기고 나머지 문자는 제거합니다.
+            // 숫자만 남기고 나머지 문자는 제거합니다. (소수점도 허용) 
             string filteredText = new string(currentText.Where(c => char.IsDigit(c) || c == '.').ToArray());
 
             // 필터링된 텍스트를 다시 TextBox에 설정합니다.
@@ -109,7 +110,7 @@ namespace DXApplication1
             {
                 textBox.Text = filteredText;
 
-                // 커서 위치를 마지막으로 이동 (입력 중 커서가 맨 앞으로 가는 문제 해결)
+                // 커서 위치를 마지막으로 이동 (입력 중 커서가 맨 앞으로 가는 문제 해결) 
                 textBox.SelectionStart = textBox.Text.Length;
             }
         }
@@ -152,7 +153,12 @@ namespace DXApplication1
 
             ExcelTest ex = new ExcelTest();
             //Power는 예외로 두고 일단 테스트
-            ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_voltage), range_Value(voltage, range), target_Value(T_ampere), range_Value(range, ampere));
+            ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_ampere), range_Value(ampere, range), "L");
+            if(mode.Equals(Mode.CPCV))
+            {
+                //CPCV모드일때 그래프를2개 그려야함
+                ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_voltage), range_Value(voltage, range), "L");
+            }
         }
 
 

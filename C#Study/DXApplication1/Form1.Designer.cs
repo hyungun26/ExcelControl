@@ -125,7 +125,7 @@ namespace DXApplication1
             this.searchPath.TabIndex = 2;
             this.searchPath.TabStop = false;
             this.searchPath.Text = "U:\\2차 전지 사업팀\\SW Project\\프로젝트별 시험데이터\\4. BPJT-24-0008 에너테크_16CH_Cell\\TestLog_ch01~0" +
-    "4\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]";
+    "4\\TEST_250107_093444_39.CC충전(1~4ch)\\MC01Ch001[001]"; // 임시 경로
             // 
             // Spec
             // 
