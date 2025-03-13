@@ -71,19 +71,19 @@ namespace DXApplication1
 
         private float TextBoxOnce(TextBox textBox) //Enter float값을 입력 받기
         {
-            float num = 0;
+            float a = 0;
             textBox.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == Keys.Enter && IsEnterPressed)
                 {
-                    num = float.Parse(textBox.Text);
+                    a = float.Parse(textBox.Text);
                     textBox.Clear();
                     IsEnterPressed = false;
                 }
             };
 
             IsEnterPressed = true;
-            return num;
+            return a;
         }
 
         private void TextBox_Enter(object sender, EventArgs e)
