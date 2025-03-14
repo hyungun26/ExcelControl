@@ -30,7 +30,7 @@ namespace DXApplication1
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            //only excel file만 열리게 해야 함
+            //only excel file만 열리게 해야 함 (미구현)
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
@@ -153,17 +153,13 @@ namespace DXApplication1
 
             ExcelTest ex = new ExcelTest();
             //Power는 예외로 두고 일단 테스트
-            ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_ampere), range_Value(ampere, range), "L");
-            if(mode.Equals(Mode.CPCV))
+            ex.ExcelControl(searchPath.Text, modeSelect.Text, "L");
+            if (mode.Equals(Mode.CPCV))
             {
                 //CPCV모드일때 그래프를2개 그려야함
-                ex.ExcelControl(searchPath.Text, modeSelect.Text, target_Value(T_voltage), range_Value(voltage, range), "L");
+                ex.ExcelControl(searchPath.Text, modeSelect.Text, "L");
             }
         }
-
-
-
-
 
         private float target_Value(TextBox textBox1)
         {

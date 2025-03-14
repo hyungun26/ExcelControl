@@ -35,7 +35,7 @@ namespace DXApplication1
 
         //int save = 0;
         //int a = 0;
-        public void ExcelControl(string path, string mode, float Value, float Value_range, string section)
+        public void ExcelControl(string path, string mode, string section)
         {
             
             excelApp.Visible = true; // 엑셀을 켜서 작동하는지 육안으로 확인하기 위한 코드 true면 엑셀을 켜서 동작을 보여줌
@@ -50,91 +50,35 @@ namespace DXApplication1
             while (findCell.Value == null)
             {
                 a++;
-                findCell = ws.Cells[a, 10];
+                findCell = ws.Cells[a, 5]; // 10 J
             }
 
             int save = a + 1; //모드 들어가서 찍는 첫번째 데이터 뺀 값
 
-            string s = (string)findCell.Value;
+            //string s = (string)findCell.Value;
             //Control.SetSelectMode(s); // 모드에 따라 처리해야할 부분이 있으면 사용할 코드
 
             while (findCell.Value != null)
             {
                 a++;
-                findCell = ws.Cells[a + 1, 10];
+                findCell = ws.Cells[a + 1, 5];
             }
 
-            MakeChart(save, a, section, out double asdf); //전체 그래프 무조건 그리기
+            MakeChart(save, a, section, 20); //전체 그래프 무조건 그리기
             if (mode == "CCCV")
-            {
-                SetSection(findCell, "Charge CV", out int a2, out int a3);
-                
-                MakeChart(a2, a3, section); //CV일때 그래프 추가
-            }
-
-            string str = null;
-            if (Value == 0 && Value_range == 0)
-            {
-                // Rest 를 제외한 나머지 모드들의 전체 그래프
-            }
-            else
             {
                 //if (s.Contains("Dis"))
                 //{
-                //    str = "DisCharge";
-                //    // 스케일 범위
-                //    if (mode == "CC")
-                //    {
-                //        Caxis.MaximumScale = -Value + Value_range;
-                //        Caxis.MinimumScale = -Value - Value_range;
-                //    }
-                //    else if (mode == "CCCV")
-                //    {
-                //        //그래프를 추가로 생성할 시 고민 해봐야함
-                //        //Vaxis.MaximumScale = Value + Value_range;
-                //        //Vaxis.MinimumScale = Value - Value_range;
-                //        //Caxis.MaximumScale = second + second_range;
-                //        //Caxis.MinimumScale = second - second_range;
-                //    }
-                //    else if (mode == "CPCV")
-                //    {
-                //        Caxis.MaximumScale = -Value + Value_range;
-                //        Caxis.MinimumScale = -Value - Value_range;
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("모드 설정이 비정상 입니다.");
-                //    }
+                //    SetSection(findCell, "DisCharge CV", out int a2, out int a3);
+                //    MakeChart(a2, a3, section, 800); //CV일때 그래프 추가
                 //}
                 //else
                 //{
-                //    str = "Charge";
-                //    // 스케일 범위
-                //    if (mode == "CC")
-                //    {
-                //        Caxis.MaximumScale = Value + Value_range;
-                //        Caxis.MinimumScale = Value - Value_range;
-                //    }
-                //    else if (mode == "CCCV")
-                //    {
-                //        //그래프를 추가로 생성할 시 고민 해봐야함
-                //        //Vaxis.MaximumScale = Value + Value_range;
-                //        //Vaxis.MinimumScale = Value - Value_range;
-                //        //Caxis.MaximumScale = second + second_range;
-                //        //Caxis.MinimumScale = second - second_range;
-                //    }
-                //    else if (mode == "CPCV")
-                //    {
-                //        Caxis.MaximumScale = Value + Value_range;
-                //        Caxis.MinimumScale = Value - Value_range;
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("모드 설정이 비정상 입니다.");
-                //    }
-                //}
+                //    SetSection(findCell, "Charge CV", out int a2, out int a3);
+                //    MakeChart(a2, a3, section, 800); //CV일때 그래프 추가
+                //}                    
             }
-            
+
             //catch(Exception ex)
             //{
             //    MessageBox.Show(ex.Message); //비상!
@@ -148,7 +92,7 @@ namespace DXApplication1
         public void ExcelControlExit()
         {
             excelApp.Quit(); //메모리 해제 같은데 100% 되는진 모르겠음 // X눌러 정상 종료하면 메모리 해제됨 debug걸려서 정상 종료 못하면 메모리에 할당되어있음  
-            //ReleaseExcelObject(excelApp);            
+            //ReleaseExcelObject(excelApp);
         }
 
         private void SetSection(Range findCell, string mode, out int save, out int a)
@@ -172,15 +116,18 @@ namespace DXApplication1
             }
         }
 
-        private void MakeChart(int save, int a, string section)
+        private void MakeChart(int save, int a, string section, int Top)
         {
             ChartObjects chartObjs = (ChartObjects)ws.ChartObjects(Type.Missing);
-            ChartObject chartObj = chartObjs.Add(100, 20, 1140, 650); // 위치와 크기 지정
+            ChartObject chartObj = chartObjs.Add(100, Top, 1140, 650); // 위치와 크기 지정
             Chart chart = chartObj.Chart;
 
             // 차트 데이터 설정
-            Range chartRange1 = ws.get_Range($"K{save}", $"K{a}");
-            Range chartRange2 = ws.get_Range($"{section}{save}", $"{section}{a}"); //이 부분을 Current와 Power로 나눠야 함
+            //Range chartRange1 = ws.get_Range($"K{save}", $"K{a}");
+            //Range chartRange2 = ws.get_Range($"{section}{save}", $"{section}{a}"); //이 부분을 Current와 Power로 나눠야 함
+                                                                                   //chart.SetSourceData(chartRange1, chartRange2);
+            Range chartRange1 = ws.get_Range($"K{1}", $"K{a}");
+            Range chartRange2 = ws.get_Range($"L{1}", $"L{a}"); //이 부분을 Current와 Power로 나눠야 함
                                                                                    //chart.SetSourceData(chartRange1, chartRange2);
 
             // 차트 유형 설정 (꺾은선형 그래프)
