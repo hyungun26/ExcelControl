@@ -64,12 +64,19 @@ namespace DXApplication1
                 findCell = ws.Cells[a + 1, 10];
             }
 
-            MakeChart(save, a, section, out double asdf); //전체 그래프 무조건 그리기
+            MakeChart(save, a, section, 20); //전체 그래프 무조건 그리기
             if (mode == "CCCV")
             {
-                SetSection(findCell, "Charge CV", out int a2, out int a3);
-                
-                MakeChart(a2, a3, section); //CV일때 그래프 추가
+                if (s.Contains("Dis"))
+                {
+                    SetSection(findCell, "DisCharge CV", out int a2, out int a3);
+                    MakeChart(a2, a3, section, 800); //CV일때 그래프 추가
+                }
+                else
+                {
+                    SetSection(findCell, "Charge CV", out int a2, out int a3);
+                    MakeChart(a2, a3, section, 800); //CV일때 그래프 추가
+                }                    
             }
 
             string str = null;
@@ -172,10 +179,10 @@ namespace DXApplication1
             }
         }
 
-        private void MakeChart(int save, int a, string section)
+        private void MakeChart(int save, int a, string section, int Top)
         {
             ChartObjects chartObjs = (ChartObjects)ws.ChartObjects(Type.Missing);
-            ChartObject chartObj = chartObjs.Add(100, 20, 1140, 650); // 위치와 크기 지정
+            ChartObject chartObj = chartObjs.Add(100, Top, 1140, 650); // 위치와 크기 지정
             Chart chart = chartObj.Chart;
 
             // 차트 데이터 설정
